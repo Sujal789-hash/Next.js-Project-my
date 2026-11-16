@@ -47,12 +47,12 @@ const InvestorSchema = new mongoose.Schema(
     checkSizeMin: {
       type: Number,
       required: true,
-      default: 100000, // $100,000
+      default: 100000, // ₹1 Lakh
     },
     checkSizeMax: {
       type: Number,
       required: true,
-      default: 2000000, // $2,000,000
+      default: 2000000, // ₹20 Lakh
     },
     preferredStages: {
       type: [String],

@@ -20,6 +20,8 @@ import RecentMeetings from '@/components/dashboard/RecentMeetings';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { formatINR } from '@/lib/currency';
 
 export default function FounderDashboard() {
   const [data, setData] = useState({
@@ -82,6 +84,8 @@ export default function FounderDashboard() {
   const raised = startup.fundingRaised || 950000;
   const progressPercent = Math.round((raised / target) * 100);
 
+  if (loading) return <LoadingSpinner fullScreen label="Loading your dashboard..." />;
+
   return (
     <div className="space-y-8">
       {/* Personalized Welcome Banner */}
@@ -129,8 +133,8 @@ export default function FounderDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Round Secured"
-          value={`$${(raised / 1000).toFixed(0)}k`}
-          subtitle={`Target: $${(target / 1000).toFixed(0)}k`}
+          value={formatINR(raised)}
+          subtitle={`Target: ${formatINR(target)}`}
           trend={`${progressPercent}% allocation`}
           trendPositive={true}
           icon={TrendingUp}
@@ -173,7 +177,7 @@ export default function FounderDashboard() {
               <p className="text-xs text-charcoal-muted">Monthly closed commitments vs soft syndication targets</p>
             </div>
             <Badge variant="emerald" size="sm">
-              ${(raised / 1000).toFixed(0)}k of ${(target / 1000).toFixed(0)}k
+              {formatINR(raised)} of {formatINR(target)}
             </Badge>
           </div>
 
@@ -182,7 +186,7 @@ export default function FounderDashboard() {
           <div className="p-4 rounded-2xl bg-ivory border border-sage/60 flex items-center justify-between text-xs">
             <span className="font-semibold text-charcoal">Round Cap / Pre-Money Valuation:</span>
             <span className="font-extrabold text-forest text-sm">
-              ${(startup.currentValuation / 1000000).toFixed(1)}M
+              {formatINR(startup.currentValuation)}
             </span>
           </div>
         </Card>

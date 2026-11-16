@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import DashboardHeader from '@/components/layout/DashboardHeader';
-import { Loader2 } from 'lucide-react';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
@@ -34,13 +34,8 @@ export default function DashboardLayout({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-ivory flex flex-col items-center justify-center space-y-3">
-        <div className="w-12 h-12 rounded-2xl bg-forest flex items-center justify-center shadow-lg">
-          <Loader2 className="w-6 h-6 text-emerald animate-spin" />
-        </div>
-        <p className="text-xs font-semibold text-charcoal tracking-wide uppercase">
-          Verifying PitchConnect Credentials...
-        </p>
+      <div className="min-h-screen bg-ivory flex items-center justify-center">
+        <LoadingSpinner label="Verifying PitchConnect Credentials..." fullScreen />
       </div>
     );
   }

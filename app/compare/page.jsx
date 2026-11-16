@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState, useEffect } from 'react';
 import { Columns, Sparkles, Building2, Check, Plus, ArrowRight } from 'lucide-react';
 import DashboardLayout from '@/app/dashboard/layout';
@@ -6,6 +6,7 @@ import StartupComparisonTable from '@/components/startup/StartupComparisonTable'
 import StartupCard from '@/components/startup/StartupCard';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function ComparePage() {
   const [startups, setStartups] = useState([]);
@@ -49,6 +50,7 @@ export default function ComparePage() {
 
   const selectedStartups = startups.filter((s) => selectedIds.includes(s._id));
 
+  if (loading) return <DashboardLayout><LoadingSpinner fullScreen label="Loading startup comparison..." /></DashboardLayout>;
   return (
     <DashboardLayout>
       <div className="space-y-8 max-w-7xl mx-auto">

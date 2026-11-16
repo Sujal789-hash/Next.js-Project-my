@@ -3,6 +3,7 @@ import React from 'react';
 import { Check, X, FileText, Sparkles, Building2, ExternalLink } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import { formatINR } from '@/lib/currency';
 
 export default function StartupComparisonTable({ startups = [], onRemove }) {
   if (startups.length === 0) {
@@ -21,8 +22,8 @@ export default function StartupComparisonTable({ startups = [], onRemove }) {
     { label: 'Founder & HQ', render: (s) => `${s.founderName} • ${s.location}` },
     { label: 'Industry Sector', render: (s) => <Badge variant="emerald" size="sm">{s.industry}</Badge> },
     { label: 'Current Stage', render: (s) => <Badge variant="forest" size="sm">{s.startupStage}</Badge> },
-    { label: 'Funding Target', render: (s) => <span className="font-extrabold text-forest text-sm">${(s.fundingRequired / 1000).toFixed(0)}k</span> },
-    { label: 'Pre-Money Valuation', render: (s) => <span className="font-bold text-charcoal text-sm">${(s.currentValuation / 1000000).toFixed(1)}M</span> },
+    { label: 'Funding Target', render: (s) => <span className="font-extrabold text-forest text-sm">{formatINR(s.fundingRequired)}</span> },
+    { label: 'Pre-Money Valuation', render: (s) => <span className="font-bold text-charcoal text-sm">{formatINR(s.currentValuation)}</span> },
     { label: 'Business Model', render: (s) => s.businessModel },
     { label: 'Team Size', render: (s) => `${s.teamSize} members` },
     {
@@ -30,7 +31,7 @@ export default function StartupComparisonTable({ startups = [], onRemove }) {
       render: (s) =>
         s.revenueInfo ? (
           <div>
-            <span className="font-bold text-emerald">${(s.revenueInfo.arr / 1000).toFixed(0)}k ARR</span>
+            <span className="font-bold text-emerald">{formatINR(s.revenueInfo.arr)} ARR</span>
             <span className="text-[11px] text-charcoal-muted block">Growth: {s.revenueInfo.growthRate}</span>
           </div>
         ) : (

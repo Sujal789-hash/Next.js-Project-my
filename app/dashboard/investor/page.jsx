@@ -19,6 +19,8 @@ import RecentMeetings from '@/components/dashboard/RecentMeetings';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { formatINR } from '@/lib/currency';
 
 export default function InvestorDashboard() {
   const [data, setData] = useState({
@@ -83,6 +85,8 @@ export default function InvestorDashboard() {
 
   const incomingPitchRequests = data.meetings.filter((m) => m.status === 'Pending').length;
   const acceptedMeetings = data.meetings.filter((m) => m.status === 'Accepted').length;
+
+  if (loading) return <LoadingSpinner fullScreen label="Loading investor dashboard..." />;
 
   return (
     <div className="space-y-8">
@@ -257,7 +261,7 @@ export default function InvestorDashboard() {
                 <div>
                   <h4 className="text-xs font-bold text-charcoal">{s.startupName}</h4>
                   <p className="text-[11px] text-charcoal-muted">
-                    {s.industry} • Ask: ${(s.fundingRequired / 1000).toFixed(0)}k
+                    {s.industry} • Ask: {formatINR(s.fundingRequired)}
                   </p>
                 </div>
                 <Link href={`/compare`}>

@@ -7,7 +7,7 @@ import {
   Calendar,
   ShieldCheck,
   TrendingUp,
-  DollarSign,
+  IndianRupee,
   AlertCircle,
   CheckCircle2,
   Clock,
@@ -17,6 +17,8 @@ import VerificationTable from '@/components/admin/VerificationTable';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { formatINR } from '@/lib/currency';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState(null);
@@ -84,6 +86,8 @@ export default function AdminDashboard() {
     }
   };
 
+  if (loading) return <LoadingSpinner fullScreen label="Loading admin console..." />;
+
   return (
     <div className="space-y-8">
       {/* Banner */}
@@ -127,7 +131,7 @@ export default function AdminDashboard() {
         <StatCard
           title="Startup Profiles"
           value={stats?.totalStartups || 3}
-          subtitle={`Total Target: $${((stats?.totalFundingRequired || 5250000) / 1000000).toFixed(1)}M`}
+          subtitle={`Total Target: ${formatINR(stats?.totalFundingRequired || 525000000)}`}
           icon={Building2}
         />
 

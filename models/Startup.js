@@ -81,7 +81,7 @@ const StartupSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 0,
-      default: 500000, // e.g., $500,000
+      default: 500000, // e.g., ₹500,000 (₹5 Lakh)
     },
     fundingRaised: {
       type: Number,
@@ -89,7 +89,7 @@ const StartupSchema = new mongoose.Schema(
     },
     currentValuation: {
       type: Number,
-      default: 3000000, // e.g., $3,000,000
+      default: 3000000, // e.g., ₹3,000,000 (₹30 Lakh)
     },
     revenueInfo: {
       arr: { type: Number, default: 0 },

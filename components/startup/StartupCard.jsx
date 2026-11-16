@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
-import { Building, TrendingUp, DollarSign, Users, FileText, CheckCircle2 } from 'lucide-react';
+import { Building, TrendingUp, IndianRupee, Users, FileText, CheckCircle2 } from 'lucide-react';
+import { formatINR } from '@/lib/currency';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
@@ -11,8 +12,8 @@ export default function StartupCard({
   onToggleSelect,
   onViewDeck,
 }) {
-  const fundingTargetFormatted = `$${(startup.fundingRequired / 1000).toFixed(0)}k`;
-  const valuationFormatted = `$${(startup.currentValuation / 1000000).toFixed(1)}M`;
+  const fundingTargetFormatted = formatINR(startup.fundingRequired);
+  const valuationFormatted = formatINR(startup.currentValuation);
 
   return (
     <Card className="flex flex-col justify-between hover:shadow-card-hover border-sage/60 transition-all duration-300 relative group">
@@ -95,7 +96,7 @@ export default function StartupCard({
             <div className="col-span-2 pt-2 border-t border-sage/40 flex items-center justify-between text-[11px]">
               <span className="text-charcoal-muted">ARR / Trajectory:</span>
               <span className="font-bold text-emerald-hover">
-                ${(startup.revenueInfo.arr / 1000).toFixed(0)}k ({startup.revenueInfo.growthRate})
+                {formatINR(startup.revenueInfo.arr)} ({startup.revenueInfo.growthRate})
               </span>
             </div>
           )}

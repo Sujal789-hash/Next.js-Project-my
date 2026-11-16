@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 import React, { useState, useEffect } from 'react';
 import {
   User,
   Building,
-  DollarSign,
+  IndianRupee,
   Globe,
   MapPin,
   Calendar,
@@ -19,6 +19,7 @@ import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import Badge from '@/components/ui/Badge';
 
 export default function ProfilePage() {
@@ -180,6 +181,7 @@ export default function ProfilePage() {
 
   const stagesList = ['Ideation', 'Pre-Seed', 'Seed', 'Series A', 'Series B+'];
 
+  if (loading) return <DashboardLayout><LoadingSpinner fullScreen label="Loading profile details..." /></DashboardLayout>;
   return (
     <DashboardLayout>
       <div className="space-y-6 max-w-4xl mx-auto">
@@ -278,7 +280,7 @@ export default function ProfilePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
-                  label="Minimum Check Size ($ USD)"
+                  label="Minimum Check Size (₹ INR)"
                   type="number"
                   value={investorForm.checkSizeMin}
                   onChange={(e) => setInvestorForm({ ...investorForm, checkSizeMin: Number(e.target.value) })}
@@ -286,7 +288,7 @@ export default function ProfilePage() {
                 />
 
                 <Input
-                  label="Maximum Check Size ($ USD)"
+                  label="Maximum Check Size (₹ INR)"
                   type="number"
                   value={investorForm.checkSizeMax}
                   onChange={(e) => setInvestorForm({ ...investorForm, checkSizeMax: Number(e.target.value) })}
@@ -424,7 +426,7 @@ export default function ProfilePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
-                  label="Funding Target / Round Ask ($ USD)"
+                  label="Funding Target / Round Ask (₹ INR)"
                   type="number"
                   value={startupForm.fundingRequired}
                   onChange={(e) => setStartupForm({ ...startupForm, fundingRequired: Number(e.target.value) })}
@@ -432,7 +434,7 @@ export default function ProfilePage() {
                 />
 
                 <Input
-                  label="Current Pre-Money Valuation ($ USD)"
+                  label="Current Pre-Money Valuation (₹ INR)"
                   type="number"
                   value={startupForm.currentValuation}
                   onChange={(e) => setStartupForm({ ...startupForm, currentValuation: Number(e.target.value) })}

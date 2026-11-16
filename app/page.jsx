@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
@@ -9,7 +9,7 @@ import {
   Calendar,
   MessageSquare,
   FileText,
-  DollarSign,
+  IndianRupee,
   ChevronDown,
   Building,
   CheckCircle2,
@@ -31,7 +31,7 @@ export default function LandingPage() {
   };
 
   const stats = [
-    { label: 'Institutional Capital Deployed', value: '$840M+' },
+    { label: 'Institutional Capital Deployed', value: '₹7,056 Cr+' },
     { label: 'Active Syndicate Partners', value: '450+' },
     { label: 'Verified Startup Founders', value: '1,200+' },
     { label: 'Pitch Meeting Success Rate', value: '78%' },
@@ -66,7 +66,7 @@ export default function LandingPage() {
       role: 'Managing Partner',
       firm: 'Emerald Capital Partners',
       location: 'New York, NY',
-      checkRange: '$500k – $2.5M',
+      checkRange: '₹42L – ₹2.1 Cr',
       focus: ['FinTech', 'AI & Machine Learning'],
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
     },
@@ -75,7 +75,7 @@ export default function LandingPage() {
       role: 'Founding Partner',
       firm: 'Apex Horizon Ventures',
       location: 'San Francisco, CA',
-      checkRange: '$1.0M – $5.0M',
+      checkRange: '₹84L – ₹4.2 Cr',
       focus: ['CleanTech', 'Energy Storage'],
       image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
     },
@@ -84,7 +84,7 @@ export default function LandingPage() {
       role: 'General Partner',
       firm: 'Catalyst Seed Collective',
       location: 'Austin, TX',
-      checkRange: '$100k – $750k',
+      checkRange: '₹8.4L – ₹63L',
       focus: ['B2B SaaS', 'Developer Tools'],
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
     },
@@ -96,42 +96,42 @@ export default function LandingPage() {
       founder: 'Sarah Chen',
       industry: 'AI & Machine Learning',
       stage: 'Seed',
-      ask: '$1.5M ($950k Secured)',
-      val: '$8.5M',
-      traction: '$420k ARR (28% MoM)',
+      ask: '₹1.26 Cr (₹79.8L Secured)',
+      val: '₹7.14 Cr',
+      traction: '₹35.3L ARR (28% MoM)',
     },
     {
       name: 'GreenPulse Energy',
       founder: 'Marcus Vance',
       industry: 'CleanTech & Energy',
       stage: 'Series A',
-      ask: '$3.0M ($2.1M Secured)',
-      val: '$16.0M',
-      traction: '$1.1M ARR (19% MoM)',
+      ask: '₹2.52 Cr (₹1.76 Cr Secured)',
+      val: '₹13.4 Cr',
+      traction: '₹92.4L ARR (19% MoM)',
     },
     {
       name: 'NovaPay Global',
       founder: 'Elena Rostova',
       industry: 'FinTech Infrastructure',
       stage: 'Pre-Seed',
-      ask: '$750k ($300k Secured)',
-      val: '$4.5M',
-      traction: '$95k ARR (35% MoM)',
+      ask: '₹63L (₹25.2L Secured)',
+      val: '₹3.78 Cr',
+      traction: '₹7.98L ARR (35% MoM)',
     },
   ];
 
   const testimonials = [
     {
-      quote: 'PitchConnect bypassed the endless cold email labyrinth. Within 12 days, we booked 7 partner meetings and closed our $1.5M Seed round lead.',
+      quote: 'PitchConnect bypassed the endless cold email labyrinth. Within 12 days, we booked 7 partner meetings and closed our ₹1.26 Cr Seed round lead.',
       name: 'Sarah Chen',
       title: 'Founder & CEO, Zenith AI',
-      round: 'Closed $1.5M Seed',
+      round: 'Closed ₹1.26 Cr Seed',
     },
     {
       quote: 'The weighted thesis matching and verified pitch deck reviews save our investment committee over 20 hours per week of low-signal screening.',
       name: 'David Sterling',
       title: 'Managing General Partner, Emerald Capital',
-      round: 'Deploys $40M Fund',
+      round: 'Deploys ₹336 Cr Fund',
     },
   ];
 
@@ -168,7 +168,7 @@ export default function LandingPage() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-sage shadow-xs">
             <span className="w-2 h-2 rounded-full bg-emerald animate-ping" />
             <span className="text-xs font-bold text-forest">The Venture Investment Ecosystem</span>
-            <span className="text-xs font-semibold text-gold-dark">• Series Seed to Series A</span>
+            <span className="text-xs font-semibold text-gold-dark">â€¢ Series Seed to Series A</span>
           </div>
 
           {/* Heading */}
@@ -214,7 +214,7 @@ export default function LandingPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 text-left">
                 <div className="p-4 rounded-2xl bg-ivory border border-sage/60">
                   <span className="text-[11px] font-bold text-charcoal-muted uppercase">Round Status</span>
-                  <p className="text-2xl font-extrabold text-forest mt-1">$950k / $1.5M</p>
+                  <p className="text-2xl font-extrabold text-forest mt-1">₹79.8L / ₹1.26 Cr</p>
                   <div className="w-full bg-sage-dark/40 h-2 rounded-full mt-3 overflow-hidden">
                     <div className="bg-emerald h-full rounded-full w-[63%]" />
                   </div>
@@ -224,7 +224,7 @@ export default function LandingPage() {
                 <div className="p-4 rounded-2xl bg-ivory border border-sage/60">
                   <span className="text-[11px] font-bold text-charcoal-muted uppercase">Pitch Meetings</span>
                   <p className="text-2xl font-extrabold text-charcoal mt-1">14 Confirmed</p>
-                  <p className="text-xs text-charcoal-muted mt-2">Next: David Sterling (Emerald Capital) – Today 10:30 AM</p>
+                  <p className="text-xs text-charcoal-muted mt-2">Next: David Sterling (Emerald Capital) â€“ Today 10:30 AM</p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-ivory border border-sage/60">
@@ -307,7 +307,7 @@ export default function LandingPage() {
                   />
                   <div>
                     <h3 className="text-sm font-bold text-charcoal">{inv.name}</h3>
-                    <p className="text-xs font-semibold text-emerald-hover">{inv.role} • {inv.firm}</p>
+                    <p className="text-xs font-semibold text-emerald-hover">{inv.role} â€¢ {inv.firm}</p>
                     <p className="text-[11px] text-charcoal-muted">{inv.location}</p>
                   </div>
                 </div>
@@ -354,7 +354,7 @@ export default function LandingPage() {
                 <h3 className="text-base font-bold text-charcoal">{stp.name}</h3>
                 <Badge variant="forest" size="sm">{stp.stage}</Badge>
               </div>
-              <p className="text-xs text-charcoal-muted mt-2">Founded by {stp.founder} • {stp.industry}</p>
+              <p className="text-xs text-charcoal-muted mt-2">Founded by {stp.founder} â€¢ {stp.industry}</p>
 
               <div className="grid grid-cols-2 gap-2 mt-4 p-3 bg-ivory rounded-xl border border-sage/60 text-xs">
                 <div>

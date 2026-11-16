@@ -9,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import { formatINR } from '@/lib/currency';
 
 export default function FundingChart({ fundingTarget = 1500000, fundingRaised = 950000 }) {
   const [mounted, setMounted] = useState(false);
@@ -35,7 +36,7 @@ export default function FundingChart({ fundingTarget = 1500000, fundingRaised = 
     );
   }
 
-  const formatCurrency = (val) => `$${(val / 1000).toFixed(0)}k`;
+  const formatCurrency = (val) => formatINR(val);
 
   return (
     <div className="w-full h-72">
@@ -65,7 +66,7 @@ export default function FundingChart({ fundingTarget = 1500000, fundingRaised = 
             tickLine={false}
           />
           <Tooltip
-            formatter={(value) => [`$${value.toLocaleString()}`, 'Amount']}
+            formatter={(value) => [formatINR(value, false), 'Amount']}
             contentStyle={{
               backgroundColor: '#FFFFFF',
               borderRadius: '12px',
@@ -98,4 +99,3 @@ export default function FundingChart({ fundingTarget = 1500000, fundingRaised = 
     </div>
   );
 }
-

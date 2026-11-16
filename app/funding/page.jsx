@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   TrendingUp,
-  DollarSign,
+  IndianRupee,
   Award,
   CheckCircle2,
   Calendar,
@@ -16,6 +16,8 @@ import FundingChart from '@/components/dashboard/FundingChart';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { formatINR } from '@/lib/currency';
 
 export default function FundingTrackerPage() {
   const [startup, setStartup] = useState(null);
@@ -55,33 +57,35 @@ export default function FundingTrackerPage() {
   const milestones = [
     {
       title: 'Angel Syndicate Kickoff & Term Sheet',
-      amount: '$300,000',
+      amount: '₹2.52 Cr',
       status: 'Completed',
       date: 'Aug 2026',
       notes: 'Executed lead SAFE notes with initial strategic advisors and angels.',
     },
     {
       title: 'Institutional Lead Commitment',
-      amount: '$650,000',
+      amount: '₹5.46 Cr',
       status: 'Completed',
       date: 'Oct 2026',
-      notes: 'Emerald Capital Partners signed lead investor commitment with 1 board seat.',
+      notes: 'Capital Partners signed lead investor commitment with 1 board seat.',
     },
     {
       title: 'Strategic Syndicate Tranche (Current)',
-      amount: '$350,000',
+      amount: '₹2.94 Cr',
       status: 'In Progress',
       date: 'Nov 2026',
       notes: 'Finalizing co-investor participation from enterprise fintech syndicates.',
     },
     {
       title: 'Round Close & Regulatory Filings',
-      amount: '$200,000',
+      amount: '₹1.68 Cr',
       status: 'Pending',
       date: 'Dec 2026',
-      notes: 'Final closing wire transfers and SEC Form D compliance lodgement.',
+      notes: 'Final closing wire transfers and compliance lodgement.',
     },
   ];
+
+  if (loading) return <DashboardLayout><LoadingSpinner fullScreen label="Loading funding tracker..." /></DashboardLayout>;
 
   return (
     <DashboardLayout>
@@ -117,10 +121,10 @@ export default function FundingTrackerPage() {
               Total Target Round Ask
             </span>
             <p className="text-3xl font-extrabold text-charcoal tracking-tight">
-              ${(target / 1000).toFixed(0)}k
+              {formatINR(target)}
             </p>
             <p className="text-xs text-charcoal-muted mt-2">
-              Based on Pre-Money Valuation of ${(startup?.currentValuation / 1000000 || 8.5).toFixed(1)}M
+              Based on Pre-Money Valuation of {formatINR(startup?.currentValuation || 8500000)}
             </p>
           </Card>
 
@@ -129,7 +133,7 @@ export default function FundingTrackerPage() {
               Capital Secured / Executed
             </span>
             <p className="text-3xl font-extrabold text-emerald tracking-tight">
-              ${(secured / 1000).toFixed(0)}k
+              {formatINR(secured)}
             </p>
             <p className="text-xs text-emerald-hover font-bold mt-2">
               {progressPercent}% of round allocation closed
@@ -141,7 +145,7 @@ export default function FundingTrackerPage() {
               Remaining Open Allocation
             </span>
             <p className="text-3xl font-extrabold text-forest tracking-tight">
-              ${(remaining / 1000).toFixed(0)}k
+              {formatINR(remaining)}
             </p>
             <p className="text-xs text-charcoal-muted mt-2">
               Available for accredited syndicate participants
@@ -164,10 +168,10 @@ export default function FundingTrackerPage() {
           </div>
 
           <div className="flex items-center justify-between text-[11px] text-charcoal-muted pt-1">
-            <span>$0</span>
-            <span>$500k</span>
-            <span>$1.0M</span>
-            <span>$1.5M (Full Target)</span>
+            <span>₹0</span>
+            <span>₹42L</span>
+            <span>₹84L</span>
+            <span>₹1.26 Cr (Full Target)</span>
           </div>
         </Card>
 

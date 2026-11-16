@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Building2,
   MapPin,
-  DollarSign,
+  IndianRupee,
   CheckCircle2,
   Calendar,
   MessageSquare,
@@ -14,6 +14,7 @@ import {
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import { formatINR } from '@/lib/currency';
 
 export default function InvestorCard({
   investor,
@@ -23,8 +24,8 @@ export default function InvestorCard({
   onToggleFavorite,
   isFavorite = false,
 }) {
-  const checkMinFormatted = `$${(investor.checkSizeMin / 1000).toFixed(0)}k`;
-  const checkMaxFormatted = `$${(investor.checkSizeMax / 1000000).toFixed(1)}M`;
+  const checkMinFormatted = formatINR(investor.checkSizeMin);
+  const checkMaxFormatted = formatINR(investor.checkSizeMax);
 
   return (
     <Card className="flex flex-col justify-between hover:shadow-card-hover border-sage/60 transition-all duration-300 relative group">
@@ -99,7 +100,7 @@ export default function InvestorCard({
         {/* Check Size Pill */}
         <div className="mt-4 p-3 bg-ivory rounded-xl border border-sage/60 flex items-center justify-between text-xs">
           <span className="font-semibold text-charcoal flex items-center gap-1">
-            <DollarSign className="w-3.5 h-3.5 text-forest" />
+            <IndianRupee className="w-3.5 h-3.5 text-forest" />
             Check Size Sweet Spot:
           </span>
           <span className="font-extrabold text-forest">

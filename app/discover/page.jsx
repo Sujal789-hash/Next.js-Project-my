@@ -9,7 +9,7 @@ import {
   Bookmark,
   Calendar,
   Building2,
-  DollarSign,
+  IndianRupee,
   ArrowRight,
   ChevronLeft,
   ChevronRight,
@@ -21,6 +21,7 @@ import InvestorFilters from '@/components/investor/InvestorFilters';
 import BookingModal from '@/components/meetings/BookingModal';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function DiscoverPage() {
   const router = useRouter();
@@ -191,6 +192,8 @@ export default function DiscoverPage() {
     currentPage * itemsPerPage
   );
 
+  if (loading) return <DashboardLayout><LoadingSpinner fullScreen label="Loading investor directory..." /></DashboardLayout>;
+
   return (
     <DashboardLayout>
       <div className="space-y-8 max-w-7xl mx-auto">
@@ -213,7 +216,7 @@ export default function DiscoverPage() {
               className="bg-white border border-sage-dark/60 rounded-xl px-3 py-1.5 text-xs font-semibold text-charcoal focus:outline-none focus:border-forest"
             >
               <option value="match">Match Score (Highest)</option>
-              <option value="checkSize">Ticket Size ($ Max)</option>
+              <option value="checkSize">Ticket Size (₹ Max)</option>
               <option value="name">Partner Name (A-Z)</option>
             </select>
           </div>

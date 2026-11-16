@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState, useEffect } from 'react';
 import {
   Calendar as CalendarIcon,
@@ -20,6 +20,7 @@ import BookingModal from '@/components/meetings/BookingModal';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function MeetingsPage() {
   const [user, setUser] = useState(null);
@@ -85,6 +86,7 @@ export default function MeetingsPage() {
   const pendingCount = meetings.filter((m) => m.status === 'Pending').length;
   const acceptedCount = meetings.filter((m) => m.status === 'Accepted').length;
 
+  if (loading) return <DashboardLayout><LoadingSpinner fullScreen label="Loading your pitch calendar..." /></DashboardLayout>;
   return (
     <DashboardLayout>
       <div className="space-y-8 max-w-6xl mx-auto">

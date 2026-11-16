@@ -1,10 +1,11 @@
-'use client';
+﻿'use client';
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '@/app/dashboard/layout';
 import ConversationList from '@/components/messaging/ConversationList';
 import ChatWindow from '@/components/messaging/ChatWindow';
 import { MessageSquare, Shield, Sparkles } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function MessagesPage() {
   const [user, setUser] = useState(null);
@@ -85,6 +86,7 @@ export default function MessagesPage() {
 
   const activeConv = conversations.find((c) => c._id === activeConvId);
 
+  if (loading) return <DashboardLayout><LoadingSpinner fullScreen label="Loading communications..." /></DashboardLayout>;
   return (
     <DashboardLayout>
       <div className="space-y-6 max-w-7xl mx-auto">

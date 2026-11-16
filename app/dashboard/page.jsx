@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function DashboardDispatcher() {
   const router = useRouter();
@@ -25,10 +26,6 @@ export default function DashboardDispatcher() {
       .catch(() => router.push('/login'));
   }, [router]);
 
-  return (
-    <div className="p-8 text-center text-xs text-charcoal-muted">
-      Redirecting to your role dashboard...
-    </div>
-  );
+  return <LoadingSpinner fullScreen label="Routing to your workspace..." />;
 }
 

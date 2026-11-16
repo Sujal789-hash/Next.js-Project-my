@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState, useEffect } from 'react';
 import {
   FileText,
@@ -18,6 +18,7 @@ import DashboardLayout from '@/app/dashboard/layout';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import Modal from '@/components/ui/Modal';
 import Input from '@/components/ui/Input';
 
@@ -185,6 +186,7 @@ export default function PitchDecksPage() {
     }
   };
 
+  if (loading) return <DashboardLayout><LoadingSpinner fullScreen label="Loading pitch decks & diligence..." /></DashboardLayout>;
   return (
     <DashboardLayout>
       <div className="space-y-8 max-w-6xl mx-auto">
