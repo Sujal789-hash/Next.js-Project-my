@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '@/app/dashboard/layout';
 import ConversationList from '@/components/messaging/ConversationList';

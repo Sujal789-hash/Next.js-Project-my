@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useState, useEffect } from 'react';
 import { Columns, Sparkles, Building2, Check, Plus, ArrowRight } from 'lucide-react';
 import DashboardLayout from '@/app/dashboard/layout';
