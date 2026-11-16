@@ -92,7 +92,7 @@ export default function RegisterPage() {
           </span>
         </Link>
         <h2 className="text-2xl font-extrabold text-charcoal tracking-tight">
-          Join the Emerald Luxe Network
+          Join the PitchConnect Network
         </h2>
         <p className="text-xs text-charcoal-muted">
           Connect directly with accredited investors and institutional founders.

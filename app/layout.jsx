@@ -2,7 +2,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'PitchConnect – Where Ambitious Startups Meet Visionary Investors',
-  description: 'Emerald Luxe – The institutional venture matching, pitch deck due diligence, and investor calendar booking platform.',
+  description: 'The institutional venture matching, pitch deck due diligence, and investor calendar booking platform.',
   icons: {
     icon: '/favicon.ico',
   },

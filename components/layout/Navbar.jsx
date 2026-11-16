@@ -54,7 +54,7 @@ export default function Navbar() {
             <div>
               <span className="text-xl font-bold tracking-tight text-forest">Pitch<span className="text-emerald">Connect</span></span>
               <span className="block text-[10px] tracking-widest uppercase font-semibold text-gold-dark -mt-1">
-                Emerald Luxe Venture
+                Venture Capital Network
               </span>
             </div>
           </Link>

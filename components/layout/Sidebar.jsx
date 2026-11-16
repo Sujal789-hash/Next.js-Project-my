@@ -88,7 +88,7 @@ export default function Sidebar({ user, isOpen, onClose }) {
                   Pitch<span className="text-emerald">Connect</span>
                 </span>
                 <span className="block text-[9px] tracking-widest uppercase font-semibold text-gold">
-                  Emerald Luxe Venture
+                  Venture Capital Network
                 </span>
               </div>
             </Link>

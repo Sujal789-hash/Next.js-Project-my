@@ -1,6 +1,6 @@
 # Next.js-Project-
 # PitchConnect – Premium Startup Investor Pitch Booking Platform
-**Design System: Emerald Luxe**  
+**Design System: Premium Venture Theme**  
 *Built exclusively with Next.js 14 App Router, JavaScript (ES6+), JSX, Tailwind CSS, MongoDB, Mongoose, and Recharts.*
 
 ---
@@ -48,7 +48,7 @@ Traditional fundraising suffers from cold email fatigue, opaque diligence, misma
 
 ### A. Public Experience
 1. **Landing at `http://localhost:3000`**:
-   - Visitors land on an Emerald Luxe themed showcase featuring platform statistics (\$840M+ deployed, 450+ partners, 1,200+ founders, 78% pitch success).
+   - Visitors land on an institutional showcase featuring platform statistics (\$840M+ deployed, 450+ partners, 1,200+ founders, 78% pitch success).
    - Visitors can review the interactive terminal preview, the 4-step workflow, featured investors, pipeline ventures, and the FAQ accordion.
 2. **Public Discovery & Matrix Comparison**:
    - Visitors can navigate to `/discover` to search investors or `/compare` to examine side-by-side metrics of verified startups before registering.
@@ -232,7 +232,7 @@ Project Next/
 - **`next.config.js`**:
   Next.js engine configuration. Configures image domains (`images.unsplash.com`, `ui-avatars.com`) and React strict mode.
 - **`tailwind.config.js`**:
-  Extends Tailwind with the Emerald Luxe color system (`forest`, `emerald`, `ivory`, `charcoal`, `sage`, `gold`), custom box shadows (`emerald-glow`, `gold-glow`), and fonts.
+  Extends Tailwind with the custom venture color system (`forest`, `emerald`, `ivory`, `charcoal`, `sage`, `gold`), custom box shadows (`emerald-glow`, `gold-glow`), and fonts.
 - **`postcss.config.js`**:
   Configures Tailwind CSS and Autoprefixer parsing.
 - **`jsconfig.json`**:
@@ -251,7 +251,7 @@ Project Next/
 - **`app/layout.jsx`**:
   The HTML root wrapper. Configures the `<html lang="en">` tag, injects `globals.css`, and defines SEO metadata (title, description, and icons).
 - **`app/globals.css`**:
-  Contains Tailwind directives, custom CSS variables for Emerald Luxe colors, custom scrollbar styling, glassmorphism panel helpers, and gradient utilities.
+  Contains Tailwind directives, custom CSS variables for venture colors, custom scrollbar styling, glassmorphism panel helpers, and gradient utilities.
 - **`app/page.jsx`**:
   The public landing page. Houses the Hero section, platform statistics counter, 4-step workflow, featured investors, pipeline startups, feature grid, testimonials, and FAQ accordion.
 
@@ -361,7 +361,7 @@ Project Next/
 - **`components/ui/Badge.jsx`**:
   Colored badge component for stages, sectors, meeting statuses, and verified accreditation labels.
 - **`components/ui/Card.jsx`**:
-  Card surface styled with Emerald Luxe borders, custom shadows, and optional hover states.
+  Card surface styled with subtle borders, custom shadows, and optional hover states.
 - **`components/ui/Input.jsx`**:
   Form input with labels, icon prefixes, error messages, and forest-colored focus rings.
 - **`components/ui/Select.jsx`**:

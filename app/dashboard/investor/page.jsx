@@ -167,7 +167,7 @@ export default function InvestorDashboard() {
 
           <div className="pt-2 border-t border-sage/40 text-center">
             <span className="text-[11px] text-charcoal-muted font-medium">
-              Emerald Luxe Capital Allocation Model
+              Institutional Capital Allocation Model
             </span>
           </div>
         </Card>

@@ -16,7 +16,7 @@ export default function Footer() {
               <div>
                 <span className="text-xl font-bold tracking-tight text-white">Pitch<span className="text-emerald">Connect</span></span>
                 <span className="block text-[10px] tracking-widest uppercase font-semibold text-gold -mt-1">
-                  Emerald Luxe Venture
+                  Venture Capital Network
                 </span>
               </div>
             </div>
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-forest/60 flex flex-col sm:flex-row items-center justify-between text-xs text-sage/60">
-          <p>© {new Date().getFullYear()} PitchConnect Inc. All rights reserved. Emerald Luxe Edition.</p>
+          <p>© {new Date().getFullYear()} PitchConnect Inc. All rights reserved.</p>
           <div className="flex items-center gap-6 mt-4 sm:mt-0">
             <a href="#" className="hover:text-white">Privacy Policy</a>
             <a href="#" className="hover:text-white">Terms of Protocol</a>

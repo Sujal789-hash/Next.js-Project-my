@@ -51,7 +51,7 @@ export async function POST() {
 
       return NextResponse.json({
         success: true,
-        message: 'MongoDB database successfully seeded with Emerald Luxe demo data.',
+        message: 'MongoDB database successfully seeded with demo data.',
       });
     } else {
       // Reset local store

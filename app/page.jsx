@@ -167,7 +167,7 @@ export default function LandingPage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-sage shadow-xs">
             <span className="w-2 h-2 rounded-full bg-emerald animate-ping" />
-            <span className="text-xs font-bold text-forest">The Emerald Luxe Venture Ecosystem</span>
+            <span className="text-xs font-bold text-forest">The Venture Investment Ecosystem</span>
             <span className="text-xs font-semibold text-gold-dark">• Series Seed to Series A</span>
           </div>
 
@@ -207,7 +207,7 @@ export default function LandingPage() {
                   <div className="w-3 h-3 rounded-full bg-emerald" />
                   <span className="text-xs font-bold text-charcoal ml-2">PitchConnect Protocol // Live Founder Terminal</span>
                 </div>
-                <Badge variant="gold" size="sm">Emerald Luxe v2.6</Badge>
+                <Badge variant="gold" size="sm">Platform v2.6</Badge>
               </div>
 
               {/* Mock Dashboard Interior */}
