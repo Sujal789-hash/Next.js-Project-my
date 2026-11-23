@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Sparkles, ArrowRight, Menu, X, Compass, Layers, ShieldCheck, Briefcase } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { useAuth } from '@/components/providers/AuthProvider';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,16 +19,6 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    // Check if user is logged in
-    fetch('/api/auth/me')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data?.user) setUser(data.user);
-      })
-      .catch(() => {});
-  }, [pathname]);
 
   const navLinks = [
     { label: 'Discover Investors', href: '/discover' },
