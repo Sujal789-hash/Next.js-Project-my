@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import {
   Users,
   Calendar,
@@ -16,59 +15,50 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import StatCard from '@/components/dashboard/StatCard';
+import FundingChart from '@/components/dashboard/FundingChart';
 import RecentMeetings from '@/components/dashboard/RecentMeetings';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { formatINR } from '@/lib/currency';
-import { useAuth } from '@/components/providers/AuthProvider';
-
-const FundingChart = dynamic(() => import('@/components/dashboard/FundingChart'), {
-  ssr: false,
-  loading: () => (
-    <div className="h-72 w-full bg-sage-light/40 rounded-2xl flex items-center justify-center text-xs text-charcoal-muted">
-      Loading analytics visualization...
-    </div>
-  ),
-});
 
 export default function FounderDashboard() {
-  const { user: authUser, profile: authProfile } = useAuth();
   const [data, setData] = useState({
-    user: authUser || null,
-    startup: authProfile || null,
+    user: null,
+    startup: null,
     meetings: [],
     matches: [],
     decks: [],
     notifications: [],
   });
-  const [loading, setLoading] = useState(!authUser);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadDashboard() {
       try {
-        const [meetRes, matchRes, deckRes, notifRes] = await Promise.all([
+        const [meRes, meetRes, matchRes, deckRes, notifRes] = await Promise.all([
+          fetch('/api/auth/me'),
           fetch('/api/meetings'),
           fetch('/api/investors/match'),
           fetch('/api/pitch-decks'),
           fetch('/api/notifications'),
         ]);
 
+        const me = meRes.ok ? await meRes.json() : {};
         const meets = meetRes.ok ? await meetRes.json() : { meetings: [] };
         const matches = matchRes.ok ? await matchRes.json() : { matches: [] };
         const decks = deckRes.ok ? await deckRes.json() : { decks: [] };
         const notifs = notifRes.ok ? await notifRes.json() : { notifications: [] };
 
-        setData((prev) => ({
-          ...prev,
-          user: authUser || prev.user,
-          startup: authProfile || prev.startup,
+        setData({
+          user: me.user || null,
+          startup: me.profile || null,
           meetings: meets.meetings || [],
           matches: matches.matches?.slice(0, 3) || [],
           decks: decks.decks || [],
           notifications: notifs.notifications?.slice(0, 4) || [],
-        }));
+        });
       } catch (err) {
         console.error('Founder dashboard load error:', err);
       } finally {
@@ -77,7 +67,7 @@ export default function FounderDashboard() {
     }
 
     loadDashboard();
-  }, [authUser, authProfile]);
+  }, []);
 
   const startup = data.startup || {
     startupName: 'Zenith AI',
@@ -94,13 +84,7 @@ export default function FounderDashboard() {
   const raised = startup.fundingRaised || 950000;
   const progressPercent = Math.round((raised / target) * 100);
 
-  if (loading && !data.user) {
-    return (
-      <div className="w-full py-20 flex items-center justify-center">
-        <LoadingSpinner label="Loading your dashboard..." />
-      </div>
-    );
-  }
+  if (loading) return <LoadingSpinner fullScreen label="Loading your dashboard..." />;
 
   return (
     <div className="space-y-8">

@@ -4,20 +4,35 @@ import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import DashboardHeader from '@/components/layout/DashboardHeader';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { useAuth } from '@/components/providers/AuthProvider';
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [loading, user, router]);
+    fetch('/api/auth/me')
+      .then((res) => {
+        if (!res.ok) throw new Error('Not authenticated');
+        return res.json();
+      })
+      .then((data) => {
+        if (data.user) {
+          setUser(data.user);
+        } else {
+          router.push('/login');
+        }
+      })
+      .catch(() => {
+        router.push('/login');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [router]);
 
-  if (loading && !user) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-ivory flex items-center justify-center">
         <LoadingSpinner label="Verifying PitchConnect Credentials..." fullScreen />

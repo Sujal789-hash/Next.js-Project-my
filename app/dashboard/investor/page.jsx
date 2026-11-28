@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import {
   Building2,
   Bookmark,
@@ -15,58 +14,49 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import StatCard from '@/components/dashboard/StatCard';
+import IndustryPieChart from '@/components/dashboard/IndustryPieChart';
 import RecentMeetings from '@/components/dashboard/RecentMeetings';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { formatINR } from '@/lib/currency';
-import { useAuth } from '@/components/providers/AuthProvider';
-
-const IndustryPieChart = dynamic(() => import('@/components/dashboard/IndustryPieChart'), {
-  ssr: false,
-  loading: () => (
-    <div className="h-72 w-full bg-sage-light/40 rounded-2xl flex items-center justify-center text-xs text-charcoal-muted">
-      Loading portfolio distribution...
-    </div>
-  ),
-});
 
 export default function InvestorDashboard() {
-  const { user: authUser, profile: authProfile } = useAuth();
   const [data, setData] = useState({
-    user: authUser || null,
-    investor: authProfile || null,
+    user: null,
+    investor: null,
     startups: [],
     meetings: [],
     favorites: [],
     decks: [],
   });
-  const [loading, setLoading] = useState(!authUser);
+  const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     try {
-      const [stpRes, meetRes, favRes, deckRes] = await Promise.all([
+      const [meRes, stpRes, meetRes, favRes, deckRes] = await Promise.all([
+        fetch('/api/auth/me'),
         fetch('/api/startups'),
         fetch('/api/meetings'),
         fetch('/api/favorites'),
         fetch('/api/pitch-decks'),
       ]);
 
+      const me = meRes.ok ? await meRes.json() : {};
       const stp = stpRes.ok ? await stpRes.json() : { startups: [] };
       const meets = meetRes.ok ? await meetRes.json() : { meetings: [] };
       const favs = favRes.ok ? await favRes.json() : { favorites: [] };
       const decks = deckRes.ok ? await deckRes.json() : { decks: [] };
 
-      setData((prev) => ({
-        ...prev,
-        user: authUser || prev.user,
-        investor: authProfile || prev.investor,
+      setData({
+        user: me.user || null,
+        investor: me.profile || null,
         startups: stp.startups || [],
         meetings: meets.meetings || [],
         favorites: favs.favorites || [],
         decks: decks.decks || [],
-      }));
+      });
     } catch (e) {
       console.error(e);
     } finally {
@@ -76,7 +66,7 @@ export default function InvestorDashboard() {
 
   useEffect(() => {
     loadData();
-  }, [authUser, authProfile]);
+  }, []);
 
   const handleUpdateMeetingStatus = async (meetingId, status) => {
     try {

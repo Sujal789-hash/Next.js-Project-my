@@ -18,11 +18,9 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
-import { useAuth } from '@/components/providers/AuthProvider';
 
 export default function Sidebar({ user, isOpen, onClose }) {
   const pathname = usePathname();
-  const { logout } = useAuth();
   const role = user?.role || 'startup';
 
   const founderLinks = [
@@ -58,7 +56,8 @@ export default function Sidebar({ user, isOpen, onClose }) {
   const links = role === 'admin' ? adminLinks : role === 'investor' ? investorLinks : founderLinks;
 
   const handleLogout = async () => {
-    await logout();
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/login';
   };
 
   return (
@@ -134,7 +133,6 @@ export default function Sidebar({ user, isOpen, onClose }) {
                 <Link
                   key={link.label}
                   href={link.href}
-                  prefetch={true}
                   onClick={onClose}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     isActive
