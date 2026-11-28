@@ -6,7 +6,6 @@ import { Sparkles, User, Mail, Phone, Lock, ArrowRight, AlertCircle, CheckCircle
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Button from '@/components/ui/Button';
-import SocialLoginButtons from '@/components/auth/SocialLoginButtons';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -22,31 +21,6 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
-
-  // Capture OAuth redirect errors
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const err = params.get('error');
-      const provider = params.get('provider');
-      const msg = params.get('message');
-
-      if (err === 'missing_credentials') {
-        const provName = provider ? provider.charAt(0).toUpperCase() + provider.slice(1) : 'Provider';
-        const clientKey = provider ? `${provider.toUpperCase()}_CLIENT_ID` : 'OAuth';
-        const secretKey = provider ? `${provider.toUpperCase()}_CLIENT_SECRET` : 'SECRET';
-        setServerError(
-          `${provName} OAuth is not active yet. Please configure ${clientKey} and ${secretKey} in .env.local to enable live official authentication.`
-        );
-      } else if (err === 'provider_error' || err === 'access_denied') {
-        setServerError(msg || 'Authentication was cancelled or declined on the provider registration page.');
-      } else if (err === 'invalid_csrf_state' || err === 'expired_oauth_state') {
-        setServerError('OAuth session expired or verification failed. Please try again.');
-      } else if (err) {
-        setServerError(msg || `OAuth registration error (${err}).`);
-      }
-    }
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -133,13 +107,6 @@ export default function RegisterPage() {
               <span>{serverError}</span>
             </div>
           )}
-
-          {/* Direct Social Logins */}
-          <SocialLoginButtons
-            role={formData.role}
-            onError={setServerError}
-            dividerText="Or register with email"
-          />
 
           <form onSubmit={handleRegister} className="space-y-4">
             <Input

@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Sparkles, Lock, Mail, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
-import SocialLoginButtons from '@/components/auth/SocialLoginButtons';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,31 +12,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  // Detect OAuth redirect errors and display helpful feedback
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const err = params.get('error');
-      const provider = params.get('provider');
-      const msg = params.get('message');
-
-      if (err === 'missing_credentials') {
-        const provName = provider ? provider.charAt(0).toUpperCase() + provider.slice(1) : 'Provider';
-        const clientKey = provider ? `${provider.toUpperCase()}_CLIENT_ID` : 'OAuth';
-        const secretKey = provider ? `${provider.toUpperCase()}_CLIENT_SECRET` : 'SECRET';
-        setError(
-          `${provName} OAuth is not active yet. Please define ${clientKey} and ${secretKey} in .env.local to enable direct official login.`
-        );
-      } else if (err === 'provider_error' || err === 'access_denied') {
-        setError(msg || 'Authentication was cancelled or declined on the provider login page.');
-      } else if (err === 'invalid_csrf_state' || err === 'expired_oauth_state') {
-        setError('OAuth session expired or verification failed. Please try again.');
-      } else if (err) {
-        setError(msg || `OAuth sign-in error (${err}).`);
-      }
-    }
-  }, []);
 
   const handleLogin = async (e) => {
     if (e) e.preventDefault();
@@ -112,12 +86,6 @@ export default function LoginPage() {
               <span>{error}</span>
             </div>
           )}
-
-          {/* Direct Social Logins */}
-          <SocialLoginButtons
-            onError={setError}
-            dividerText="Or sign in with email"
-          />
 
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
