@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     const body = await request.json();
 
-    // Validate with Zod
+    // Validate with Zod. The schema only accepts startup/investor roles.
     const validation = registerSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
@@ -17,6 +17,15 @@ export async function POST(request) {
     }
 
     const { fullName, email, phone, password, role } = validation.data;
+
+    // Defensive check: never elevate a public registration, even if the
+    // validation schema is changed later.
+    if (role === 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Admin accounts cannot be created through public registration' },
+        { status: 403 }
+      );
+    }
 
     // Check duplicate
     const existing = await findUserByEmail(email);
@@ -35,7 +44,8 @@ export async function POST(request) {
       password: passwordHash,
       role,
       avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=145A46&color=ffffff`,
-      isVerified: role === 'admin',
+      // Public registrations are never pre-verified.
+      isVerified: false,
       status: 'active',
     });
 
@@ -68,11 +78,10 @@ export async function POST(request) {
 
     return response;
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error('Registration error:', error.name || error.message || 'UnknownError');
     return NextResponse.json(
       { success: false, message: 'Internal server error during registration' },
       { status: 500 }
     );
   }
 }
-

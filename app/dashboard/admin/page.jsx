@@ -16,7 +16,6 @@ import StatCard from '@/components/dashboard/StatCard';
 import VerificationTable from '@/components/admin/VerificationTable';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { formatINR } from '@/lib/currency';
 
@@ -73,19 +72,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSeedDatabase = async () => {
-    try {
-      setMessage('Seeding database records...');
-      const res = await fetch('/api/seed', { method: 'POST' });
-      const data = await res.json();
-      setMessage(data.message);
-      setTimeout(() => setMessage(''), 4000);
-      loadAdminData();
-    } catch (e) {
-      setMessage('Seed operation failed: ' + e.message);
-    }
-  };
-
   if (loading) return <LoadingSpinner fullScreen label="Loading admin console..." />;
 
   return (
@@ -103,12 +89,6 @@ export default function AdminDashboard() {
           <p className="text-xs sm:text-sm text-charcoal-muted leading-relaxed">
             Supervise accredited investor compliance, verify founder credentials, monitor live deal flow, and audit platform security.
           </p>
-        </div>
-
-        <div className="flex items-center gap-2.5">
-          <Button size="sm" variant="outline" onClick={handleSeedDatabase}>
-            Reset / Seed Demo Data
-          </Button>
         </div>
       </div>
 

@@ -6,7 +6,8 @@ import {
   createMessage,
   findUserById,
   createNotification,
-  getStore,
+  findConversationBetween,
+  createConversation,
 } from '@/lib/dataService';
 
 export async function GET(request) {
@@ -72,18 +73,15 @@ export async function POST(request) {
 
     let targetConvId = conversationId;
 
-    // If starting a fresh chat without conversationId
+    // If starting a fresh chat without conversationId, reuse or create a
+    // persisted conversation (MongoDB in production, local store in dev).
     if (!targetConvId && recipientId) {
-      const store = getStore();
-      const existing = store.conversations.find((c) =>
-        c.participants.includes(user.id) && c.participants.includes(recipientId)
-      );
+      const existing = await findConversationBetween(user.id, recipientId);
 
       if (existing) {
         targetConvId = existing._id;
       } else {
-        const newConv = {
-          _id: 'conv_' + Date.now(),
+        const newConv = await createConversation({
           participants: [user.id, recipientId],
           lastMessage: {
             text: content,
@@ -94,9 +92,7 @@ export async function POST(request) {
             [recipientId]: 1,
             [user.id]: 0,
           },
-          createdAt: new Date().toISOString(),
-        };
-        store.conversations.unshift(newConv);
+        });
         targetConvId = newConv._id;
       }
     }
@@ -129,4 +125,3 @@ export async function POST(request) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }
-

@@ -4,7 +4,9 @@ import {
   getVerifications,
   updateVerificationStatus,
   createNotification,
-  getStore,
+  setStartupVerified,
+  setInvestorVerified,
+  setUserVerified,
 } from '@/lib/dataService';
 
 export async function GET(request) {
@@ -35,26 +37,23 @@ export async function POST(request) {
       return NextResponse.json({ success: false, message: 'Invalid verification payload' }, { status: 400 });
     }
 
+    // Persist the verification decision to MongoDB.
     const updated = await updateVerificationStatus(verificationId, status, adminNotes, user.id);
     if (!updated) {
       return NextResponse.json({ success: false, message: 'Verification record not found' }, { status: 404 });
     }
 
-    // Also update target entity verified status
-    const store = getStore();
+    // Persist the resulting verified flag to the actual target documents.
     if (status === 'Approved') {
       if (updated.targetType === 'startup') {
-        const stp = store.startups.find((s) => s._id.toString() === updated.targetId.toString());
-        if (stp) stp.isVerified = true;
+        await setStartupVerified(updated.targetId, true);
       } else if (updated.targetType === 'investor') {
-        const inv = store.investors.find((i) => i._id.toString() === updated.targetId.toString());
-        if (inv) inv.isVerified = true;
+        await setInvestorVerified(updated.targetId, true);
       }
-      const targetUser = store.users.find((u) => u._id.toString() === updated.userId.toString());
-      if (targetUser) targetUser.isVerified = true;
+      await setUserVerified(updated.userId, true);
     }
 
-    // Notify user
+    // Notify the affected user.
     await createNotification({
       userId: updated.userId,
       title: `Profile Verification: ${status}`,
@@ -72,4 +71,3 @@ export async function POST(request) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }
-
